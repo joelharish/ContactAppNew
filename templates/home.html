@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+    <script src="{{url_for('static', filename='bootstrap.min.js')}}"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand">ContactApp</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{{url_for('addContact')}}">Add Contact</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{url_for('logout')}}" class="nav-link active">Logout</a>
+        </li>
+      </ul>
+<!--      <form action="/search" method="GET" class="d-flex" role="search">-->
+<!--        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">-->
+<!--        <button class="btn btn-outline-success" type="submit">Search</button>-->
+<!--      </form>-->
+      <div class="d-flex" style="color: white;">{{session["username"]}}</div>
+    </div>
+  </div>
+</nav>
+
+</div>
+
+  <table class="table"  style="margin: 20px;width:97%;text-align:center;">
+    <thead>
+      <tr  class="table-dark table table-striped table-hover">
+        <th>NAME</th>
+        <th>NUMBER</th>
+        <th>EDIT</th>
+        <th>DELETE</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in datas %}
+        <tr>
+          <td>{{data[1]}}</td>
+          <td>{{data[2]}}</td>
+          <td><a href="{{url_for('editContact', cid = data[0])}}" class="btn btn-dark">Edit</a></td>
+          <td><a href="{{url_for('deleteContact', cid = data[0])}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete?')">Delete</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+<div class="text-center p-5 position-relative position-absolute bottom-0 start-50 translate-middle-x">
+   {% with messages = get_flashed_messages(with_categories = true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+</div>
+</body>
+</html>

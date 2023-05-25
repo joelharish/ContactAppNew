@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+</head>
+<body>
+{% with messages = get_flashed_messages(with_categories = true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<div class="vh-100 d-flex justify-content-center align-items-center">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6">
+            <div class="card bg-white">
+              <div class="card-body p-5">
+                <form class="mb-3 mt-md-4" action="/login" method="POST" autocomplete="off">
+                  <h2 class="fw-bold mb-2 text-uppercase ">Login</h2>
+                  <p class=" mb-5">Please enter your email and password!</p>
+                  <div class="mb-3">
+                    <label for="email" class="form-label ">Email address</label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label ">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="*******">
+                  </div>
+                  <div class="d-grid">
+                    <button class="btn btn-outline-dark" type="submit">Login</button>
+                  </div>
+                </form>
+                <div>
+                  <p class="mb-0  text-center">Don't have an account? <a href="{{url_for('register')}}" class="text-primary fw-bold">Sign
+                      Up</a></p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+</html>
